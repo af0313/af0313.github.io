@@ -3,9 +3,9 @@ title: Portfolio - af0313
 description: Ticorporate
 ---
 
-# Portfolio
+![Tekijän profiilikuva](assets/profiili.jpg){: style="float:right"}
 
-![Tekijän profiilikuva](assets/profiili.jpg){: .profile .right }
+# Portfolio
 
 ## Sisällysluettelo
 
