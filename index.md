@@ -5,7 +5,7 @@ description: Ticorporate
 
 # Portfolio
 
-<img src="assets/profiili.jpg" alt="Tekijän profiilikuva" style="float:right; width:150px; margin>
+![Tekijän profiilikuva](assets/profiili.jpg){: .profile .right }
 
 ## Sisällysluettelo
 
