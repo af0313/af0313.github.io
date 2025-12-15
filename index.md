@@ -5,6 +5,8 @@ description: Ticorporate
 
 # Portfolio
 
+![Tekijän profiilikuva](assets/profiili.jpg)
+
 ## Sisällysluettelo
 
 1.  [Pilvi-infrastruktuuri](#1-pilvi-infrastruktuuri)
