@@ -50,7 +50,7 @@ Koin myös, että hyödynsin hyvin automaatiota pilven kanssa. Oli myös ilo huo
 
 ### Jasmine & Karma
 
-Angular/Ionic-komponenttien testaus suoritettiin Jasminella ja Karmalla. Ratkaisuun päädyttiin, koska projektirakenteessa oli jo automaattisesti generoidut testit komponenteittain. Tavoitteena oli testata komponenttien päätoiminnallisuuksia. Alla on esimerkki Jasmine-testistä x-komponentille. Testillä testataan filteredCustomers-funktion toimivuus.
+Angular/Ionic-komponenttien testaus suoritettiin Jasminella ja Karmalla. Ratkaisuun päädyttiin, koska projektirakenteessa oli jo automaattisesti generoidut testit komponenteittain. Tavoitteena oli testata komponenttien päätoiminnallisuuksia. Alla on esimerkki Jasmine-testistä customers-page-komponentille. Testillä testataan filteredCustomers-funktion toimivuus.
 
 ```
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -124,11 +124,76 @@ describe('CustomersPage', () => {
 
 ### Jest
 
-Esimerkki.
+CDK-templaattien toimivuus testattiin Jest-kirjaston avulla, implementoituna julkaisuputkeen muiden yksikkötestien tavoin. Alla on esimerkki database-stackin testaamisesta. Esimerkissä on myös huomioitavaa aiemman riippuvuuden simulointi.
+
+```
+import { App } from 'aws-cdk-lib';
+import { Template } from 'aws-cdk-lib/assertions';
+import { DatabaseStack } from '../lib/database-stack';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import { Stack } from 'aws-cdk-lib';
+
+describe('DatabaseStack', () => {
+  let app: App;
+  let template: Template;
+
+  // beforeEach hook to set up the app and stack before each test
+  // need to set up a fake VPC as well since DatabaseStack requires it
+  beforeEach(() => {
+    app = new App();
+    const vpcStack = new Stack(app, 'TestVpcStack');
+    const vpc = new ec2.Vpc(vpcStack, 'TestVpc', {
+      maxAzs: 1,
+      subnetConfiguration: [
+        {
+          name: 'Public',
+          subnetType: ec2.SubnetType.PUBLIC,
+          cidrMask: 24,
+        },
+        {
+          name: 'Private',
+          subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
+          cidrMask: 24,
+        },
+        {
+          name: 'Isolated',
+          subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
+          cidrMask: 24,
+        },
+      ],
+    });
+    const instanceClass = ec2.InstanceClass.BURSTABLE3;
+    const instanceSize = ec2.InstanceSize.MICRO;
+    const dbStack = new DatabaseStack(app, 'TestDatabaseStack', {
+      vpc,
+      rdsSecretName: 'test-secret',
+      instanceClass,
+      instanceSize,
+    });
+    template = Template.fromStack(dbStack);
+  });
+
+  // tests that a secret is created in Secrets Manager with the correct name
+  it('should create secrets in Secrets Manager', () => {
+    template.hasResourceProperties('AWS::SecretsManager::Secret', {
+      Name: 'test-secret',
+    });
+  });
+
+  // tests that an RDS instance is created with the correct properties
+  it('should create an RDS instance', () => {
+    template.hasResourceProperties('AWS::RDS::DBInstance', {
+      DBInstanceClass: 'db.t3.micro',
+      Engine: 'mysql',
+    });
+  });
+});
+
+```
 
 ### Mitä opin?
 
-Vaikka en tehnyt testaussuunnitelmaa alussa, sain suoritettua testausta järjestelmällisesti. Koodiin liittyvät muutokset kuitenkin usein rikkoivat testit, jotka oli kirjoitettu aikaisessa vaiheessa projektia, ja aikataulusyistä näitä testejä mm. kommentoitiin pois. Testit oli toisaalta implementoitu järkevästi, koska yksikkötestit suoritettiin julkaisuputkessa automaattisesti. Testit suorittamalla jokaisen pushin yhteydessä löydettiin useita ongelmakohtia koodissa.
+Vaikka en tehnyt testaussuunnitelmaa alussa, sain suoritettua testausta järjestelmällisesti. Onnistuin identifoimaan tärkeimmät paikat, joissa testaamista tarvitaan. Koodiin liittyvät muutokset kuitenkin usein rikkoivat testit, jotka oli kirjoitettu aikaisessa vaiheessa projektia, ja aikataulusyistä näitä testejä mm. kommentoitiin pois. Testit oli toisaalta implementoitu järkevästi, koska yksikkötestit suoritettiin julkaisuputkessa automaattisesti. Testit suorittamalla jokaisen pushin yhteydessä löydettiin useita ongelmakohtia koodissa.
 
 Toiseksi ongelmakohdaksi nousi modaalikomponentit. Ongelmakohtana lienee ollut renderöitymiseen liittyvät ajoitusongelmat. Käytännössä kaikki modaalikomponentit jäivät yksikkötestien sijaan e2e-testien testattaviksi. Lopulta kuitenkin myös e2e-testit jäivät implementoimatta lopputuotteelle, koska Cognito-ominaisuuden lisääminen koodissa esti Cypressiltä pääsyn sisäänkirjautumaan.
 
