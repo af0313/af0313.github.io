@@ -29,17 +29,22 @@ Projektin alkuvaiheessa kuitenkin ymmärrettiin, että toiminnallisuuksia tulee 
 
 ### Hinta-arviot
 
-Projektin alkuvaiheessa tehtiin arvio infrastruktuurin kuluista. Arvio perustui suunniteltuun infrastruktuuriin. Valitut resurssit eivät kuitenkaan kuvastaneet oikeassa käytössä valittuja, vaan olivat resurssi-intensiivisempiä ja sen takia kalliimpia. Oletuksena oli myös, että infrastruktuuria pidetään käynnissä vain työaikoina. Ensimmäinen arvio oli, että kulutus olisi noin 23 € kuussa. Todellisuudessa keskimääräinen kulutus oli noin 20 € kuussa.
+Projektin alkuvaiheessa tehtiin arvio infrastruktuurin kuluista. Arvio perustui suunniteltuun infrastruktuuriin. Valitut resurssit eivät kuitenkaan kuvastaneet oikeassa käytössä valittuja, vaan olivat resurssi-intensiivisempiä ja sen takia kalliimpia. Oletuksena oli myös, että infrastruktuuria pidetään käynnissä vain työaikoina. Ensimmäinen arvio oli, että kulutus olisi noin 23 € kuussa. Todellisuudessa keskimääräinen kulutus oli noin 20 € kuussa. Arvio oli yllättävän realistinen huomioiden epävarmuuden suunnittelussa.
 
 Kulutuksen vähentämisessä hyödynnettiin infrastruktuurin pystytystä ja tuhoamista IaC-templaattien avulla. Tulevaisuudessa projektin parissa voitaisiin miettiä EventBridgen hyödyntämistä esim. tietokannan pysäyttämiseen ajoitetusti.
 
 ### Ongelmatilanteet
 
-RDS Proxy.
+Pilvi-infrastruktuurin parissa ilmeni hyvin vähän ongelmia. Omista ongelmista mainittakoon tässä kaksi tapausta:
+
+- Aliverkkorakenteen takia hyppykoneen käyttäminen osoittautui hankalaksi RDS-tietokannan kanssa. Tapausta hankaloitti se, että käytimme RDS Proxyä. Lopulta ongelma kierrettiin luomalla migrations-lambda, jolla tietokantaan syötetään pystytyksen yhteydessä dataa.
+- RDS Proxy ei kuulu AWS:n Free Tierin palveluihin. Kyseinen palvelu saatiin kuitenkin pystytettyä CDK-templaatilla. Amazon tilkitsi tämän porsaanreiän projektin aikana, mikä johti orporesurssin syntymiseen, sekä äkkinäiseen pilvi-infrastruktuurin muutokseen. Infrastruktuuri muutettiin sellaiseksi, että lambdat keskustelevat suoraan RDS-tietokannan kanssa.
 
 ### Mitä opin?
 
-Mitä opin? Vahvuudet tässä? Miksi valitsin nämä esimerkit?
+Opin sen, että dokumentaatiota seuraamalla saa rakennettua myös sellaisia infrastruktuureja, jotka eivät ole tyypillisiä. Kantapään kautta opin myös sen, että käyttöön otettavat palvelut kannattaa tarkistaa saatavuudeltaan (RDS Proxy!). Lisäksi opin paljon admin-työskentelystä AWS:n parissa.
+
+Koin myös, että hyödynsin hyvin automaatiota pilven kanssa. Oli myös ilo huomata SQL- ja tietokantaosaamisen hyödyt, kun kyselyitä suunniteltiin. Parannettavaakin kuitenkin on: kulujen suunnitteluun ja seurantaan tulisi kiinnittää enemmän huomiota, kuten myös tileihin liittyvään tietoturvaan.
 
 ## 2. Testaus
 
