@@ -15,38 +15,74 @@ description: Ticorporate
 
 ## 1. Pilvi-infrastruktuuri
 
-Pilvisuunnitelmat ekasta viimeiseen versioon. Hinta-arviot. RDS Proxy-ongelma. API-avaimen mietintä.
-
 Mitä opin? Vahvuudet tässä?
 
 Miksi valitsin nämä esimerkit?
+
+### Suunnitelmat
+
+Tähän kuvat cloud1 ja cloud2, selitys miten kehitys eteni.
+
+### Hinta-arviot
+
+Hinta-arviot ja vertailua oikeaan kulutukseen. Eventbridge-huomio.
+
+### Ongelmatilanteet
+
+RDS Proxy.
 
 ## 2. Testaus
 
-Jasmine ja Jest.
-
 Mitä opin? Vahvuudet tässä?
 
 Miksi valitsin nämä esimerkit?
+
+### Jasmine & Karma
+
+Esimerkki.
+
+### Jest
+
+Esimerkki.
 
 ## 3. Automaatio
 
-Github Actions workflows (deploy to s3 from hosting). Robotista pieni pätkä.
-
 Mitä opin? Vahvuudet tässä?
 
 Miksi valitsin nämä esimerkit?
+
+### Github Actions Workflows
+
+Github Actions workflows (deploy to s3 from hosting).
+
+### Datan hankinta
+
+Robotista pieni pätkä.
 
 ## 4. Muuta satunnaista
 
-Mock data (ja storen käyttö). Skirptit. User pages.
-
 Mitä opin? Vahvuudet tässä?
 
 Miksi valitsin nämä esimerkit?
 
+### Mock data
+
+Mock data (ja storen käyttö).
+
+### Skriptit
+
+Powershell.
+
+### Frontend
+
+Userpages.
+
 ## 5. Tavoitteet
 
+### Reflektio
+
 Miten tavoitteet toteutuivat? Mitä jäi toteutumatta? Mitä opin suunnitelman ulkopuolelta?
+
+### Tulevaisuus
 
 Tulevaisuus; millainen työ, kuinka TC tuki tätä, mitä osaamista vielä tarvitsen?
