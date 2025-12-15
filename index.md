@@ -23,6 +23,10 @@ Miksi valitsin nämä esimerkit?
 
 Tähän kuvat cloud1 ja cloud2, selitys miten kehitys eteni.
 
+Projektin alkaessa pilvi-infrastruktuurista keskusteltiin ryhmän tekniikkajäsenten kesken; päädyimme kokeilemaan serverless-ratkaisua, koska halusimme haastaa itseämme. Ensimmäinen versio infrastruktuurisuunnitelmasta saatiin toteutettua aikaisin, mutta huomioimatta jäi se, miten sovellus saadaan käyttäjän laitteelle. Alla on kuva ensimmäisestä suunnitelmasta.
+
+![Infrastruktuuri-suunnitelma 1](assets/cloud1.png)
+
 ### Hinta-arviot
 
 Hinta-arviot ja vertailua oikeaan kulutukseen. Eventbridge-huomio.
