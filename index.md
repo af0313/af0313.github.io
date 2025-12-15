@@ -7,23 +7,23 @@ description: Ticorporate
 
 ## Sisällysluettelo
 
-- 1.  Pilvi-infrastruktuuri
-- 2.  Testaus
-- 3.  Automaatio
-- 4.  Muuta satunnaista
+1.  [Pilvi-infrastruktuuri](#1-pilvi-infrastruktuuri)
+2.  [Testaus](#2-testaus)
+3.  [Automaatio](#3-automaatio)
+4.  [Muuta satunnaista](#4-muuta-satunnaista)
 
-## Pilvi-infrastruktuuri
-
-Content
-
-## Testaus
+## 1. Pilvi-infrastruktuuri
 
 Content
 
-## Automaatio
+## 2. Testaus
 
 Content
 
-## Muuta satunnaista
+## 3. Automaatio
+
+Content
+
+## 4. Muuta satunnaista
 
 Content
