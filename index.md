@@ -15,13 +15,9 @@ description: Ticorporate
 
 ## 1. Pilvi-infrastruktuuri
 
-Mitä opin? Vahvuudet tässä?
-
-Miksi valitsin nämä esimerkit?
-
 ### Suunnitelmat
 
-Projektin alkaessa pilvi-infrastruktuurista keskusteltiin ryhmän tekniikkajäsenten kesken; päädyimme kokeilemaan serverless-ratkaisua, koska halusimme haastaa itseämme. Ensimmäinen versio infrastruktuurisuunnitelmasta saatiin toteutettua aikaisin, mutta huomioimatta jäi se, miten sovellus saadaan käyttäjän laitteelle. Tämä korjattiin opettajan palautteen ansiosta. Alla on kuva ensimmäisestä suunnitelmasta.
+Projektin alkaessa pilvi-infrastruktuurista keskusteltiin ryhmän tekniikkajäsenten kesken; päädyimme kokeilemaan serverless-ratkaisua, koska halusimme haastaa itseämme. B-suunnitelmana suunniteltiin myös perinteisempi palvelinratkaisu (EC2-pohjainen). Ensimmäinen versio infrastruktuurisuunnitelmasta saatiin toteutettua aikaisin, mutta huomioimatta jäi se, miten sovellus saadaan käyttäjän laitteelle. Tämä korjattiin opettajan palautteen ansiosta. Alla on kuva ensimmäisestä käyttövalmiista suunnitelmasta.
 
 ![Infrastruktuuri-suunnitelma 1](assets/cloud1.png)
 
@@ -33,11 +29,17 @@ Projektin alkuvaiheessa kuitenkin ymmärrettiin, että toiminnallisuuksia tulee 
 
 ### Hinta-arviot
 
-Hinta-arviot ja vertailua oikeaan kulutukseen. Eventbridge-huomio.
+Projektin alkuvaiheessa tehtiin arvio infrastruktuurin kuluista. Arvio perustui suunniteltuun infrastruktuuriin. Valitut resurssit eivät kuitenkaan kuvastaneet oikeassa käytössä valittuja, vaan olivat resurssi-intensiivisempiä ja sen takia kalliimpia. Oletuksena oli myös, että infrastruktuuria pidetään käynnissä vain työaikoina. Ensimmäinen arvio oli, että kulutus olisi noin 23 € kuussa. Todellisuudessa keskimääräinen kulutus oli noin 20 € kuussa.
+
+Kulutuksen vähentämisessä hyödynnettiin infrastruktuurin pystytystä ja tuhoamista IaC-templaattien avulla. Tulevaisuudessa projektin parissa voitaisiin miettiä EventBridgen hyödyntämistä esim. tietokannan pysäyttämiseen ajoitetusti.
 
 ### Ongelmatilanteet
 
 RDS Proxy.
+
+### Mitä opin?
+
+Mitä opin? Vahvuudet tässä? Miksi valitsin nämä esimerkit?
 
 ## 2. Testaus
 
