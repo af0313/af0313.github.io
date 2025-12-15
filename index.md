@@ -239,6 +239,30 @@ Lisäksi opin myös paljon Gitin käytöstä tekemällä ryhmälle käyttöohjee
 
 ### Tulevaisuus
 
-Tulevaisuus; millainen työ, kuinka TC tuki tätä, mitä osaamista vielä tarvitsen?
+Tulevaisuudessa toivoisin pääseväni töihin data-analytiikan parissa. Tässä pilvi-infrastruktuurin käsittelyssä on ehdottomasti hyötyä, kuten myös muualta hankitusta Python-osaamisesta. Testaus ja QA ei varsinaisesti liity tähän suoraan, mutta sain siitä myös hyviä oppeja matkaan. Opin myös yleisiä projekti- ja ohjelmistotuotantokäytänteitä, sekä erityisesti Scrumiin liittyvää osaamista.
 
-[⬆ Back to top ](#portfolio)
+Taitoja, joita täytyisi vielä harjoitella on oman tilastotieteen ymmärtämisen kasvatus, sekä syvempi ymmärrys data-analytiikasta. Valituilla opintojaksoilla olen päässyt melko pintapuolisesti tekemään sitä, mutta lähtökohdat ovat tällä hetkellä hyvät.
+
+<!-- Back-to-top button -->
+
+<a href="#portfolio" class="back-to-top" aria-label="Back to top<a href="#portfolio" class="back-to-top" aria-label="Back to top right: 1rem; /_ distance from right edge _/
+bottom: 1rem; /_ distance from bottom edge _/
+width: 44px; /_ touch-friendly size _/
+height: 44px;
+display: grid;
+place-items: center; /_ center the arrow _/
+text-decoration: none;
+font-size: 1.25rem;
+line-height: 1;
+color: #fff;
+background: #2c974b; /_ Cayman-ish green _/
+border-radius: 999px;
+box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+z-index: 9999;
+}
+.back-to-top:hover{
+filter: brightness(1.1);
+}
+@media (prefers-reduced-motion: no-preference){
+html{ scroll-behavior: smooth; } /_ smooth scroll _/
+}
