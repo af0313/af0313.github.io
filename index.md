@@ -19,13 +19,13 @@ description: Ticorporate
 
 Projektin alkaessa pilvi-infrastruktuurista keskusteltiin ryhmän tekniikkajäsenten kesken; päädyimme kokeilemaan serverless-ratkaisua, koska halusimme haastaa itseämme. B-suunnitelmana suunniteltiin myös perinteisempi palvelinratkaisu (EC2-pohjainen). Ensimmäinen versio infrastruktuurisuunnitelmasta saatiin toteutettua aikaisin, mutta huomioimatta jäi se, miten sovellus saadaan käyttäjän laitteelle. Tämä korjattiin opettajan palautteen ansiosta. Alla on kuva ensimmäisestä käyttövalmiista suunnitelmasta.
 
-![Infrastruktuuri-suunnitelma 1](assets/cloud1.png =100x100)
+![Infrastruktuuri-suunnitelma 1](assets/cloud1.png)
 
 Lyhyesti selitettynä: käyttäjä pääsee sivulle CloudFrontin kautta S3:een tallennettuun sivuun, jonka jälkeen käyttäjä autentikoituu Cogniton avulla. Autentikoitu käyttäjä voi käyttää API Gatewayn kautta Lambda-funktioita, jotka keskustelevat RDS-tietokannan kanssa. Tarkoituksena oli myös implementoida omien kuvien tallentaminen sekä kuvatunnistusominaisuus Bedrockin avulla.
 
 Projektin alkuvaiheessa kuitenkin ymmärrettiin, että toiminnallisuuksia tulee rajata rajallisen ajan vuoksi. Kuvantunnistusominaisuus rajattiin pois toteutuksesta. Myös koodikäytänteitä sovittaessa päädytiin käyttämään Github Actionseja CodePipelinen sijaan. Lisäksi backend-kehityksessä ilmeni toive lisätä RDS Proxy infrastruktuuriin tietokantalatenssin välttämiseksi. Alla olevassa kuvassa näkyvät nämä muutokset.
 
-![Infrastruktuuri-suunnitelma 2](assets/cloud2.png =100x100)
+![Infrastruktuuri-suunnitelma 2](assets/cloud2.png)
 
 ### Hinta-arviot
 
@@ -48,17 +48,89 @@ Koin myös, että hyödynsin hyvin automaatiota pilven kanssa. Oli myös ilo huo
 
 ## 2. Testaus
 
-Mitä opin? Vahvuudet tässä?
-
-Miksi valitsin nämä esimerkit?
-
 ### Jasmine & Karma
 
-Esimerkki.
+Angular/Ionic-komponenttien testaus suoritettiin Jasminella ja Karmalla. Ratkaisuun päädyttiin, koska projektirakenteessa oli jo automaattisesti generoidut testit komponenteittain. Tavoitteena oli testata komponenttien päätoiminnallisuuksia. Alla on esimerkki Jasmine-testistä x-komponentille. Testillä testataan filteredCustomers-funktion toimivuus.
+
+```
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+import { CustomersPage } from './customers.page';
+
+describe('CustomersPage', () => {
+  let component: CustomersPage;
+  let fixture: ComponentFixture<CustomersPage>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule, CustomersPage],
+      providers: [provideRouter([])],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(CustomersPage);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should filter customers by search term', () => {
+    component.allcustomers = [
+      //mock customers; follows Interface
+      {
+        customer_id: 1,
+        first_name: 'Tapio',
+        last_name: 'Testinen',
+        email: 'tapio@example.com',
+        phone: '0401234567',
+        notes: 'Testiasiakas',
+        User_user_id: 'test',
+      },
+      {
+        customer_id: 2,
+        first_name: 'Matti',
+        last_name: 'Meikäläinen',
+        email: 'matti@example.com',
+        phone: '0507654321',
+        notes: '',
+        User_user_id: 'test',
+      },
+    ];
+
+    component.searchItem = 'tapio';
+    let result = component.filteredCustomers();
+    expect(result.length).toBe(1);
+    expect(result[0].first_name).toBe('Tapio');
+
+    component.searchItem = 'meikäläinen';
+    result = component.filteredCustomers();
+    expect(result.length).toBe(1);
+    expect(result[0].last_name).toBe('Meikäläinen');
+
+    component.searchItem = 'matti@';
+    result = component.filteredCustomers();
+    expect(result.length).toBe(1);
+    expect(result[0].email).toBe('matti@example.com');
+
+    component.searchItem = '';
+    result = component.filteredCustomers();
+    expect(result.length).toBe(2);
+
+    component.searchItem = 'xyz';
+    result = component.filteredCustomers();
+    expect(result.length).toBe(0);
+  });
+});
+```
 
 ### Jest
 
 Esimerkki.
+
+### Mitä opin?
+
+Vaikka en tehnyt testaussuunnitelmaa alussa, sain suoritettua testausta järjestelmällisesti. Koodiin liittyvät muutokset kuitenkin usein rikkoivat testit, jotka oli kirjoitettu aikaisessa vaiheessa projektia, ja aikataulusyistä näitä testejä mm. kommentoitiin pois. Testit oli toisaalta implementoitu järkevästi, koska yksikkötestit suoritettiin julkaisuputkessa automaattisesti. Testit suorittamalla jokaisen pushin yhteydessä löydettiin useita ongelmakohtia koodissa.
+
+Toiseksi ongelmakohdaksi nousi modaalikomponentit. Ongelmakohtana lienee ollut renderöitymiseen liittyvät ajoitusongelmat. Käytännössä kaikki modaalikomponentit jäivät yksikkötestien sijaan e2e-testien testattaviksi. Lopulta kuitenkin myös e2e-testit jäivät implementoimatta lopputuotteelle, koska Cognito-ominaisuuden lisääminen koodissa esti Cypressiltä pääsyn sisäänkirjautumaan.
 
 ## 3. Automaatio
 
