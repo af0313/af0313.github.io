@@ -5,6 +5,8 @@ description: Ticorporate
 
 ![Tekijän profiilikuva](assets/profiili.jpg){: style="float: right; border-radius: 50%; margin: 1rem"}
 
+af0313@student.jamk.fi{: style="float: right; margin: 1rem"}
+
 # Portfolio
 
 ## Sisällysluettelo
