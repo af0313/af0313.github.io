@@ -15,6 +15,8 @@ description: Ticorporate
 4.  [Muuta satunnaista](#4-muuta-satunnaista)
 5.  [Tavoitteet](#5-tavoitteet)
 
+Linkki projektin Github-repositorioon: [Atra](https://github.com/jamktiko/Atra)
+
 ## 1. Pilvi-infrastruktuuri
 
 ### Suunnitelmat
