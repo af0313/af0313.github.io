@@ -219,11 +219,11 @@ Mitä opin? Vahvuudet tässä? Miksi valitsin nämä esimerkit?
 
 ### Mock data
 
-Projektin aikaisissa vaiheissa ilmeni tarve päästä kehittämään frontendiä vaikka pilvi-infrastruktuurissa tai tietokantarakenteessa tehdään samanaikaisesti muutoksia. Lähestyin ongelmaa tekoälyn avustamana, ja sain tehtyä yksinkertaiset rakenteet, joilla env-tiedostossa saadaan määriteltyä näytetäänkö oikeaa "tuotantodataa" vai luotua mock dataa. Ongelmia ilmein kuitenkin esim. mock-datan päivittämisessä, koska emme käytä storea datan käsittelyyn. Mock datasta saatiin kuitenkin hyötyjä; frontend-kehitys pystyi jatkumaan jouhevasti.
+Projektin aikaisissa vaiheissa ilmeni tarve päästä kehittämään frontendiä vaikka pilvi-infrastruktuurissa tai tietokantarakenteessa tehdään samanaikaisesti muutoksia. Lähestyin ongelmaa tekoälyn avustamana, ja sain tehtyä yksinkertaiset rakenteet, joilla env-tiedostossa saadaan määriteltyä näytetäänkö oikeaa "tuotantodataa" vai luotua mock dataa. Ongelmia ilmeni kuitenkin esim. mock-datan päivittämisessä, koska sovellus ei käytä storea datan käsittelyyn. Mock datasta saatiin kuitenkin hyötyjä; frontend-kehitys pystyi jatkumaan jouhevasti.
 
 ### Skriptit
 
-Pienenä optimointina kirjoitin skriptejä, jotka nopeuttivat omaa tekemistäni. Ainakin yksi muu ryhmän jäsen myös innostui kokeilemaan omia skriptejä. Tein skriptit Powershellin profiiliin; alla on esimerkkejä.
+Pienenä työn optimointina kirjoitin skriptejä, jotka nopeuttivat omaa tekemistäni. Ainakin yksi muu ryhmän jäsen myös innostui kokeilemaan omia skriptejä. Tein skriptit Powershellin profiiliin; alla on esimerkkejä.
 
 ```
 function atra {
@@ -254,16 +254,18 @@ function apiq {
 Skriptit tekevät seuraavat toimenpiteet:
 
 - Siirtyminen projektin työkansioon.
-- CDK-templaattien ajaminen putkeen ilman vaadittuja syötteitä.
+- CDK-templaattien ajaminen peräkkäin ilman vaadittuja käyttäjäsyötteitä.
 - api-stackin outputtien haku; tällä saadaan nopeasti API-url.
 
 ### Frontend
 
-Userpages.
+Projektin loppupuolella siirryin auttamaan frontendin kehityksessä kevyemmissä työtehtävissä. Tein tyylittelyjä yhteisesti sovittuja tyylejä seuraten, mutta tein myös sisällöntuotantoa esim. Privacy Policy-sivulle User-tabin alle.
 
 ### Mitä opin?
 
-Mitä opin? Vahvuudet tässä? Miksi valitsin nämä esimerkit?
+Skriptien rakentamisen parissa opin lisää komentorivin käyttämisestä ja työn optimoinnista. Tämä toi varmuutta tekemiseen myös esim. Gitin parissa. Skriptien auttamana säästin useita työminuutteja, jotka olisivat muuten valuneet hukkaan. Mock datan tekeminen oli myös hyödyllistä, mutta koin sen myös haastavaksi. Sovelluksen rakenne oli mielestäni monimutkainen ja komponenttien uudelleenkäyttö vähäistä, mikä teki rakenteesta monimutkaisemman kuin tarve vaati. Kuten aiemmin mainittu, storea käyttämällä tämä ongelma oltaisiin saatu ratkaistua.
+
+Jälkeenpäin mietittynä olisin voinut opiskella Angularia ja Ionicia aikaisessa vaiheessa, että työntekoni frontendin parissa olisi ollut hyödyllisempää. Tyylien asettelu elementeille on melko mekaanista työtä. Toisaalta käytin aikaa, että saimme huolellisesti suunnitellut rakenteet tulevaisuutta varten komponenteille, jotka eivät olleet vielä tärkeitä.
 
 ## 5. Tavoitteet
 
