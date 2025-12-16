@@ -16,6 +16,7 @@ description: Ticorporate
 5.  [Tavoitteet](#5-tavoitteet)
 
 Linkki projektin Github-repositorioon: [Atra](https://github.com/jamktiko/Atra)
+
 Sähköposti: af0313@student.jamk.fi
 
 ## 1. Pilvi-infrastruktuuri
