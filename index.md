@@ -5,8 +5,6 @@ description: Ticorporate
 
 ![Tekijän profiilikuva](assets/profiili.jpg){: style="float: right; border-radius: 50%; margin: 1rem"}
 
-af0313@student.jamk.fi{: style="float: right; margin: 1rem"}
-
 # Portfolio
 
 ## Sisällysluettelo
@@ -257,9 +255,31 @@ Toinen asia, jossa halusimme hyvissä ajoin tehdä asian itsellemme helpoksi oli
 
 Rakensin myös Python-pohjaisen ohjelman, jolla hain dataa sivuilta. Saimme luvan NTS:ltä tämän toteuttamiseen (ainoana toiveena oli, ettemme käyttäisi sivuistoilla näkyviä kuvia tekijänoikeusseikkojen takia). Ohjelmalle annetaan taulukkona sivut, joita käsitellään. Tämän jälkeen sivulta ekstraktoidaan dataa tietyistä elementeistä, joka taas muotoillaan haluttuun muotoon. Haasteita tässä oli se, että data ei ollut yhtenäisessä muodossa eri valmistajien tuotteissa.
 
-Kun data on lopulta kerätty ja käsitelty, se muotoillaan vielä SQL-lauseiksi, joilla data voidaan syöttää helposti tietokantaan. Alla on muutama esimerkki ohjelman toiminnasta.
+Kun data on lopulta kerätty ja käsitelty, se muotoillaan vielä SQL-lauseiksi, joilla data voidaan syöttää helposti tietokantaan. Datan käsittely vaatii useita askelia; heittomerkkien käsittely SQL:ää varten, välilyöntien trimmaus, turhien sanojen poistaminen, sekä tuotepakettien erittely tuotteista. Alla on muutama esimerkki ohjelman toiminnasta.
 
-CODE HERE
+Title-muuttujan transformointi käyttökelpoiseksi apufunktioiden avulla.
+
+```
+# product name is title minus manufacturer and size, plus some rubbish
+product_name = title.replace(manufacturer, "").replace(size, "").strip(" -")
+product_name = clean_title(product_name) # remove unnecessary words
+product_name = normalize_whitespace(product_name) # clean up whitespace
+product_name = product_name[:max_name_length]  # truncate safely
+```
+
+SQL-inserteiksi muuttaminen
+
+```
+# Save SQL to file; header + values
+sql_header = "INSERT INTO PublicInk (product_name, manufacturer, color, recalled, image_url, size) VALUES\n"
+with open("inserts.sql", "w", encoding="utf-8") as f:
+    f.write(sql_header)
+    f.write(",\n      ".join(sql_values) + ";\n")
+
+print("SQL statements saved to inserts.sql")
+print("Total amount of inks fetched:", ink_amount)
+# End of file: use inserts.sql to import data into the database.
+```
 
 ### Mitä opin?
 
