@@ -21,13 +21,13 @@ description: Ticorporate
 
 Projektin alkaessa pilvi-infrastruktuurista keskusteltiin ryhmän tekniikkajäsenten kesken; päädyimme kokeilemaan serverless-ratkaisua, koska halusimme haastaa itseämme. B-suunnitelmana suunniteltiin myös perinteisempi palvelinratkaisu (EC2-pohjainen). Ensimmäinen versio infrastruktuurisuunnitelmasta saatiin toteutettua aikaisin, mutta huomioimatta jäi se, miten sovellus saadaan käyttäjän laitteelle. Tämä korjattiin opettajan palautteen ansiosta. Alla on kuva ensimmäisestä käyttövalmiista suunnitelmasta.
 
-![Infrastruktuuri-suunnitelma 1](assets/cloud1.png)
+![Infrastruktuuri-suunnitelma 1](assets/cloud1.png){: style="width:80%"}
 
 Lyhyesti selitettynä: käyttäjä pääsee sivulle CloudFrontin kautta S3:een tallennettuun sivuun, jonka jälkeen käyttäjä autentikoituu Cogniton avulla. Autentikoitu käyttäjä voi käyttää API Gatewayn kautta Lambda-funktioita, jotka keskustelevat RDS-tietokannan kanssa. Tarkoituksena oli myös implementoida omien kuvien tallentaminen sekä kuvatunnistusominaisuus Bedrockin avulla.
 
-Projektin alkuvaiheessa kuitenkin ymmärrettiin, että toiminnallisuuksia tulee rajata rajallisen ajan vuoksi. Kuvantunnistusominaisuus rajattiin pois toteutuksesta. Myös koodikäytänteitä sovittaessa päädyttiin käyttämään Github Actionseja CodePipelinen sijaan. Lisäksi backend-kehityksessä ilmeni toive lisätä RDS Proxy infrastruktuuriin tietokantalatenssin välttämiseksi. Alla olevassa kuvassa näkyvät nämä muutokset.
+Projektin alkuvaiheessa kuitenkin ymmärrettiin, että toiminnallisuuksia tulee rajata rajallisen ajan vuoksi. Kuvantunnistusominaisuus rajattiin pois toteutuksesta. Myös koodikäytänteitä sovittaessa päädyttiin käyttämään Github Actionseja CodePipelinen sijaan. Lisäksi backend-kehityksessä ilmeni toive lisätä RDS Proxy infrastruktuuriin tietokantalatenssin välttämiseksi. Myös aliverkkojen hierarkia selkeytyi suunnittelutyössä tarkemmaksi. Alla olevassa kuvassa näkyvät nämä muutokset.
 
-![Infrastruktuuri-suunnitelma 2](assets/cloud2.png)
+![Infrastruktuuri-suunnitelma 2](assets/cloud2.png){: style="width:80%"}
 
 ### Hinta-arviot
 
@@ -195,15 +195,13 @@ describe('DatabaseStack', () => {
 
 ### Mitä opin?
 
-Vaikka en tehnyt testaussuunnitelmaa alussa, sain suoritettua testausta järjestelmällisesti. Onnistuin identifoimaan tärkeimmät paikat, joissa testaamista tarvitaan. Koodiin liittyvät muutokset kuitenkin usein rikkoivat testit, jotka oli kirjoitettu aikaisessa vaiheessa projektia, ja aikataulusyistä näitä testejä mm. kommentoitiin pois. Testit oli toisaalta implementoitu järkevästi, koska yksikkötestit suoritettiin julkaisuputkessa automaattisesti. Testit suorittamalla jokaisen pushin yhteydessä löydettiin useita ongelmakohtia koodissa.
+Vaikka en tehnyt testaussuunnitelmaa alussa, sain silti suoritettua testausta suhteellisen järjestelmällisesti. Onnistuin identifoimaan tärkeimmät paikat, joissa testaamista tarvitaan. Koodiin liittyvät muutokset kuitenkin usein rikkoivat testit, jotka oli kirjoitettu aikaisessa vaiheessa projektia, ja aikataulusyistä näitä testejä mm. kommentoitiin pois. Testit oli toisaalta implementoitu järkevästi, koska yksikkötestit suoritettiin julkaisuputkessa automaattisesti. Testit suorittamalla jokaisen pushin yhteydessä löydettiin useita ongelmakohtia koodissa.
 
 Toiseksi ongelmakohdaksi nousi modaalikomponentit. Käytännössä kaikki modaalikomponentit jäivät yksikkötestien sijaan e2e-testien testattaviksi. Lopulta kuitenkin myös e2e-testit jäivät implementoimatta lopputuotteelle, koska Cognito-ominaisuuden lisääminen koodissa esti Cypressiltä pääsyn sisäänkirjautumaan. Mikäli aikaa olisi ollut enemmän, eikä tarvetta siirtyä muihin työtehtäviin, olisin voinut käyttää lisätunteja ongelman ratkomiseen.
 
+Lisäksi projektin loppupuolella ymmärsimme ryhmänä, että storen hyödyntäminen sovelluksessa olisi ratkonut useita ongelmia. Logiikan kulku, suorituskyky, ja testien kattavuus olisi parempi, jos olisimme tehneet niin.
+
 ## 3. Automaatio
-
-Mitä opin? Vahvuudet tässä?
-
-Miksi valitsin nämä esimerkit?
 
 ### Github Actions Workflows
 
@@ -213,29 +211,65 @@ Github Actions workflows (deploy to s3 from hosting).
 
 Robotista pieni pätkä.
 
+### Mitä opin?
+
+Mitä opin? Vahvuudet tässä? Miksi valitsin nämä esimerkit?
+
 ## 4. Muuta satunnaista
-
-Mitä opin? Vahvuudet tässä?
-
-Miksi valitsin nämä esimerkit?
 
 ### Mock data
 
-Mock data (ja storen käyttö).
+Projektin aikaisissa vaiheissa ilmeni tarve päästä kehittämään frontendiä vaikka pilvi-infrastruktuurissa tai tietokantarakenteessa tehdään samanaikaisesti muutoksia. Lähestyin ongelmaa tekoälyn avustamana, ja sain tehtyä yksinkertaiset rakenteet, joilla env-tiedostossa saadaan määriteltyä näytetäänkö oikeaa "tuotantodataa" vai luotua mock dataa. Ongelmia ilmein kuitenkin esim. mock-datan päivittämisessä, koska emme käytä storea datan käsittelyyn. Mock datasta saatiin kuitenkin hyötyjä; frontend-kehitys pystyi jatkumaan jouhevasti.
 
 ### Skriptit
 
-Powershell.
+Pienenä optimointina kirjoitin skriptejä, jotka nopeuttivat omaa tekemistäni. Ainakin yksi muu ryhmän jäsen myös innostui kokeilemaan omia skriptejä. Tein skriptit Powershellin profiiliin; alla on esimerkkejä.
+
+```
+function atra {
+    Set-Location 'C:\JAMK\tc\atra_project\Atra'
+}
+
+function dep {
+    cdk deploy vpc --require-approval never
+    cdk deploy database --require-approval never
+    cdk deploy frontend --require-approval never
+    cdk deploy cognito --require-approval never
+    cdk deploy api --require-approval never
+}
+
+function apiq {
+    $stackName = "api"
+    $stackOutputJson = aws cloudformation describe-stacks --stack-name $stackName | ConvertFrom-Json
+    $outputs = $stackOutputJson.Stacks[0].Outputs
+    foreach ($output in $outputs) {
+        Write-Host "Output Key: $($output.OutputKey)"
+        Write-Host "Output Value: $($output.OutputValue)"
+        Write-Host "Description: $($output.Description)"
+        Write-Host "-----------------------------"
+    }
+}
+```
+
+Skriptit tekevät seuraavat toimenpiteet:
+
+- Siirtyminen projektin työkansioon.
+- CDK-templaattien ajaminen putkeen ilman vaadittuja syötteitä.
+- api-stackin outputtien haku; tällä saadaan nopeasti API-url.
 
 ### Frontend
 
 Userpages.
 
+### Mitä opin?
+
+Mitä opin? Vahvuudet tässä? Miksi valitsin nämä esimerkit?
+
 ## 5. Tavoitteet
 
 ### Reflektio
 
-En ollut asettanut tarkkoja tavoitteita opintojaksolle, mutta halusin päästä tekemään Scrum Masterin tai Product Ownerin roolissa töitä, sekä oppia joitakin teknologioita lisää. En kuitenkaan päässyt SM:n tai PO:n rooliin. Testaajana pääsin kuitenkin oppimaan uusia testikirjastoja, ja lisäksi oma-aloittesesti panostin automaation opetteluun Githubissa. Opin myös Angularin perusteita.
+En ollut asettanut tarkkoja tavoitteita opintojaksolle, mutta halusin päästä tekemään Scrum Masterin tai Product Ownerin roolissa töitä, sekä oppia joitakin teknologioita lisää. En kuitenkaan päässyt SM:n tai PO:n rooliin. Projektinhallintaan liittyen sain kuitenkin kokemusta Scrum-prosessista, ja pyrin myös pitämään itseni ja tiimini ajan tasalla tulevista deadlineista. Testaajana pääsin oppimaan uusia testikirjastoja, ja lisäksi panostin oma-aloitteisesti automaation opetteluun Githubissa. Opin myös Angularin perusteita.
 
 Lisäksi opin myös paljon Gitin käytöstä tekemällä ryhmälle käyttöohjeet tyypillisiin tilanteisiin. Ongelmatilanteissa ratkoimme asiat yhdessä. Pilvi-infrastruktuurin suunnittelu ei ollut alkuperäisissä tavoitteissani, mutta sen tekeminen oli hyvä haaste itselleni. Toivoisin voivani myös myöhemmin työntää itseäni vielä enemmän mukavuusaluen ulkopuolelle oppimaan uutta.
 
@@ -243,6 +277,6 @@ Lisäksi opin myös paljon Gitin käytöstä tekemällä ryhmälle käyttöohjee
 
 Tulevaisuudessa toivoisin pääseväni töihin data-analytiikan parissa. Tässä pilvi-infrastruktuurin käsittelyssä on ehdottomasti hyötyä, kuten myös muualta hankitusta Python-osaamisesta. Testaus ja QA ei varsinaisesti liity tähän suoraan, mutta sain siitä myös hyviä oppeja matkaan. Opin myös yleisiä projekti- ja ohjelmistotuotantokäytänteitä, sekä erityisesti Scrumiin liittyvää osaamista.
 
-Taitoja, joita täytyisi vielä harjoitella on oman tilastotieteen ymmärtämisen kasvatus, sekä syvempi ymmärrys data-analytiikasta. Valituilla opintojaksoilla olen päässyt melko pintapuolisesti tekemään sitä, mutta lähtökohdat ovat tällä hetkellä hyvät.
+Taitoja, joita täytyisi vielä harjoitella on oman tilastotieteen ymmärtämisen kasvatus, sekä syvempi ymmärrys data-analytiikasta. Koen, että näitä pääsisin parhaiten oppimaan oikean työn parissa teoreettisen suuntauksen sijaan. Valituilla opintojaksoilla olen päässyt melko pintapuolisesti tekemään data-analyysiä, mutta lähtökohdat ovat tällä hetkellä tyydyttävät.
 
 [⬆ Back to top ](#portfolio)
