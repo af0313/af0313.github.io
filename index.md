@@ -205,16 +205,14 @@ Lisäksi projektin loppupuolella ymmärsimme ryhmänä, että storen hyödyntäm
 
 ### Github Actions Workflows
 
-Github Actions workflows (deploy to s3 from hosting).
-
 Projektia aloittaessa tahdoimme, että julkaisusta tehdään mahdollisimman helppo ja automatisoitu. Päädyimme käyttämään Github Actions workfloweja. Tehtävänäni oli rakentaa tarvittavat workflowit. Ryhdyin rakentamaan workfloweja askel kerrallaan demon perusteella. Kaiken kaikkiaan tein neljä workflowia:
 
 - Destroy AWS Infrastructure: tuhoaa pilviresurssit. Tämänkaltaisita ei tulisi käyttää oikeissa tuotantoympäristöissä, mutta prototyypin rakentamisessa koen oikeutetuksi.
 - Test on Main Push: ajaa yksikkötestit, kun githubiin tehdään push.
 - Production Deploy: Pystyttää CDK-templaattien avulla AWS-resurssit. Tämä workflow myös ajaa Migrations-lambdan, jolla populoidaan tietokanta.
-- Hosting Deployment: Buildaa sovelluksen, ja siirtää tuotoksen haluttuun S3:een.
+- Hosting Deployment: Buildaa sovelluksen, ja kopioi tuotoksen hosting-kansiosta haluttuun S3:een.
 
-Hosting Deployment oli lopulta vähimmällä käytöllä, mutta muista kolmesta saimme tuntuvia hyötyjä. Alla on esimerkkinä Test on Main Push.
+Hosting Deployment oli lopulta vähimmällä käytöllä, mutta muista kolmesta saimme tuntuvia hyötyjä. Yksikkötestien automaattisilla ajoilla löydettiin virheitä koodissa. Lisäksi saimme tuntuvia säästöjä rahallisesti resurssien käytöstä vain työaikana. Alla on esimerkkinä Test on Main Push.
 
 ```
 name: Test on Main Push
@@ -253,7 +251,13 @@ jobs:
 
 ### Datan hankinta
 
-Robotista pieni pätkä.
+Toinen asia, jossa halusimme hyvissä ajoin tehdä asian itsellemme helpoksi oli oikean datan tutkiminen ja mahdollinen käyttöönotto. Otin työn alle Nordic Tattoo Suppliesin sivuilta datan käsittelyn. Datasta löytyi juuri sen muotoisia ominaisuuksia kuin oletimme, mutta esim. nimien pituuksissa tuli yllättäviä huomioita. Jouduimme tämän takia mm. muokkaamaan tietokannassa musteiden nimien sallittua pituutta.
+
+Rakensin myös Python-pohjaisen ohjelman, jolla hain dataa sivuilta. Saimme luvan NTS:ltä tämän toteuttamiseen (ainoana toiveena oli, ettemme käyttäisi sivuistoilla näkyviä kuvia tekijänoikeusseikkojen takia). Ohjelmalle annetaan taulukkona sivut, joita käsitellään. Tämän jälkeen sivulta ekstraktoidaan dataa tietyistä elementeistä, joka taas muotoillaan haluttuun muotoon. Haasteita tässä oli se, että data ei ollut yhtenäisessä muodossa eri valmistajien tuotteissa.
+
+Kun data on lopulta kerätty ja käsitelty, se muotoillaan vielä SQL-lauseiksi, joilla data voidaan syöttää helposti tietokantaan. Alla on muutama esimerkki ohjelman toiminnasta.
+
+CODE HERE
 
 ### Mitä opin?
 
