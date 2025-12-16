@@ -207,6 +207,50 @@ Lisäksi projektin loppupuolella ymmärsimme ryhmänä, että storen hyödyntäm
 
 Github Actions workflows (deploy to s3 from hosting).
 
+Projektia aloittaessa tahdoimme, että julkaisusta tehdään mahdollisimman helppo ja automatisoitu. Päädyimme käyttämään Github Actions workfloweja. Tehtävänäni oli rakentaa tarvittavat workflowit. Ryhdyin rakentamaan workfloweja askel kerrallaan demon perusteella. Kaiken kaikkiaan tein neljä workflowia:
+
+- Destroy AWS Infrastructure: tuhoaa pilviresurssit. Tämänkaltaisita ei tulisi käyttää oikeissa tuotantoympäristöissä, mutta prototyypin rakentamisessa koen oikeutetuksi.
+- Test on Main Push: ajaa yksikkötestit, kun githubiin tehdään push.
+- Production Deploy: Pystyttää CDK-templaattien avulla AWS-resurssit. Tämä workflow myös ajaa Migrations-lambdan, jolla populoidaan tietokanta.
+- Hosting Deployment: Buildaa sovelluksen, ja siirtää tuotoksen haluttuun S3:een.
+
+Hosting Deployment oli lopulta vähimmällä käytöllä, mutta muista kolmesta saimme tuntuvia hyötyjä. Alla on esimerkkinä Test on Main Push.
+
+```
+name: Test on Main Push
+run-name: ${{ github.actor }} is pushing to main
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+      - name: Use npmmirror registry #temp fix for package problems
+        run: npm config set registry https://registry.npmmirror.com
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Ionic CLI
+        run: npm install -g @ionic/cli
+      - name: Build Ionic projects
+        run: ionic build
+      - name: Run unit tests
+        run: |
+          npm test -- --watch=false --browsers=ChromeHeadless
+          cd backend
+          npm install
+          npm test
+      - name: Final status
+        run: echo "This job's status is ${{ job.status }}."
+```
+
 ### Datan hankinta
 
 Robotista pieni pätkä.
@@ -254,7 +298,7 @@ function apiq {
 Skriptit tekevät seuraavat toimenpiteet:
 
 - Siirtyminen projektin työkansioon.
-- CDK-templaattien ajaminen peräkkäin ilman vaadittuja käyttäjäsyötteitä.
+- CDK-templaattien ajaminen peräkkäin ilman vaadittuja käyttäjäsyötteitä. Kyseistä skriptiä hyödynnettiin myös deploy-workflowissa.
 - api-stackin outputtien haku; tällä saadaan nopeasti API-url.
 
 ### Frontend
