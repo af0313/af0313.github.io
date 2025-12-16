@@ -257,7 +257,7 @@ Rakensin myös Python-pohjaisen ohjelman, jolla hain dataa sivuilta. Saimme luva
 
 Kun data on lopulta kerätty ja käsitelty, se muotoillaan vielä SQL-lauseiksi, joilla data voidaan syöttää helposti tietokantaan. Datan käsittely vaatii useita askelia; heittomerkkien käsittely SQL:ää varten, välilyöntien trimmaus, turhien sanojen poistaminen, sekä tuotepakettien erittely tuotteista. Alla on muutama esimerkki ohjelman toiminnasta.
 
-Title-muuttujan transformointi käyttökelpoiseksi apufunktioiden avulla.
+Title-muuttujan transformointi käyttökelpoiseksi apufunktioiden avulla. Manufacturer ja size otetaan talteen muuttujiin ennen tätä elif-lauseilla. Ylläpidettävyys on tällä hetkellä huonohko, mutta uusia mustetuottajia lisätään sivuston tuotteisiin harvoin.
 
 ```
 # product name is title minus manufacturer and size, plus some rubbish
@@ -267,7 +267,7 @@ product_name = normalize_whitespace(product_name) # clean up whitespace
 product_name = product_name[:max_name_length]  # truncate safely
 ```
 
-SQL-inserteiksi muuttaminen
+SQL-inserteiksi muuttaminen ja tallentaminen tiedostoon.
 
 ```
 # Save SQL to file; header + values
@@ -283,7 +283,9 @@ print("Total amount of inks fetched:", ink_amount)
 
 ### Mitä opin?
 
-Mitä opin? Vahvuudet tässä? Miksi valitsin nämä esimerkit?
+Alusta asti automaation miettimisestä oli suuria hyötyjä. Workflowit olivat erityisen hyödyllisiä, varsinkin kun yksikkötestit saatiin implementoitua niihin. Pyrin myös siihen, että olisimme hyödyntäneet Hosting Deployment-workflowia enemmän. Tässä kuitenkin päädyttiin ongelmiin sen suhteen, että vaihtuva API-url oli hankalaa päivittää automaattisesti pystytyksen jälkeen koodiin. Luultavimmin tämän olisi voinut ratkoa hyödyntämällä api-stackin output-arvoa url:n hakemiseksi.
+
+Kokemuksena "robotin" rakentaminen oli kuitenkin antoisa ja mukava. Datan hankinta sen avulla jäi ikävä kyllä irralliseksi. Toisaalta, on hyvä tietää etukäteen jatkokehitystä varten datan muodosta ja siitä, miten paljon dataa tietokantaan on päätymässä.
 
 ## 4. Muuta satunnaista
 
