@@ -17,6 +17,8 @@ description: Ticorporate
 
 Linkki projektin Github-repositorioon: [Atra](https://github.com/jamktiko/Atra)
 
+Linkki omaan Githubiin: [af0313](https://github.com/af0313)
+
 Sähköposti: af0313@student.jamk.fi
 
 ## 1. Pilvi-infrastruktuuri
@@ -209,7 +211,7 @@ Lisäksi projektin loppupuolella ymmärsimme ryhmänä, että storen hyödyntäm
 
 ### Github Actions Workflows
 
-Projektia aloittaessa tahdoimme, että julkaisusta tehdään mahdollisimman helppo ja automatisoitu. Päädyimme käyttämään Github Actions workfloweja. Tehtävänäni oli rakentaa tarvittavat workflowit. Ryhdyin rakentamaan workfloweja askel kerrallaan demon perusteella. Kaiken kaikkiaan tein neljä workflowia:
+Projektia aloittaessa tahdoimme, että julkaisusta tehdään mahdollisimman helppo ja automatisoitu. Päädyimme käyttämään Github Actions workfloweja CI/CD-putken rakentamiseen. Tehtävänäni oli rakentaa tarvittavat workflowit. Ryhdyin rakentamaan workfloweja askel kerrallaan demon perusteella. Kaiken kaikkiaan tein neljä workflowia:
 
 - Destroy AWS Infrastructure: tuhoaa pilviresurssit. Tämänkaltaisita ei tulisi käyttää oikeissa tuotantoympäristöissä, mutta prototyypin rakentamisessa koen oikeutetuksi.
 - Test on Main Push: ajaa yksikkötestit, kun githubiin tehdään push.
