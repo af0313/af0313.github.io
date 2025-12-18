@@ -213,7 +213,7 @@ Lisäksi projektin loppupuolella ymmärsimme ryhmänä, että storen hyödyntäm
 
 Projektia aloittaessa tahdoimme, että julkaisusta tehdään mahdollisimman helppo ja automatisoitu. Päädyimme käyttämään Github Actions workfloweja CI/CD-putken rakentamiseen. Tehtävänäni oli rakentaa tarvittavat workflowit. Ryhdyin rakentamaan workfloweja askel kerrallaan demon perusteella. Kaiken kaikkiaan tein neljä workflowia:
 
-- Destroy AWS Infrastructure: tuhoaa pilviresurssit. Tämänkaltaisita ei tulisi käyttää oikeissa tuotantoympäristöissä, mutta prototyypin rakentamisessa koen oikeutetuksi.
+- Destroy AWS Infrastructure: tuhoaa pilviresurssit. Tämänkaltaisia ei tulisi käyttää oikeissa tuotantoympäristöissä, mutta prototyypin rakentamisessa koen oikeutetuksi.
 - Test on Main Push: ajaa yksikkötestit, kun githubiin tehdään push. Toteuttaa Continuous Integration-toimen.
 - Production Deploy: Pystyttää CDK-templaattien avulla AWS-resurssit. Tämä workflow myös ajaa Migrations-lambdan, jolla populoidaan tietokanta.
 - Hosting Deployment: Buildaa sovelluksen, ja kopioi tuotoksen hosting-kansiosta haluttuun S3:een. Toteuttaa Continuous Deployment-toimen. Ongelmakohdaksi nousi buildatun sovelluksen siirtäminen pilveen; repositorioon päivittäminen tuotti ongelmia.
@@ -263,7 +263,7 @@ Rakensin myös Python-pohjaisen ohjelman, jolla hain dataa sivuilta. Saimme luva
 
 Kun data on lopulta kerätty ja käsitelty, se muotoillaan vielä SQL-lauseiksi, joilla data voidaan syöttää helposti tietokantaan. Datan käsittely vaatii useita askelia; heittomerkkien käsittely SQL:ää varten, välilyöntien trimmaus, turhien sanojen poistaminen, sekä tuotepakettien erittely tuotteista. Alla on muutama esimerkki ohjelman toiminnasta.
 
-Title-muuttujan transformointi käyttökelpoiseksi apufunktioiden avulla. Manufacturer ja size otetaan talteen muuttujiin ennen tätä elif-lauseilla. Ylläpidettävyys on tällä hetkellä huonohko, mutta uusia mustetuottajia lisätään sivuston tuotteisiin harvoin.
+Title-muuttujan transformointi käyttökelpoiseksi omien apufunktioiden avulla. Manufacturer ja size otetaan talteen muuttujiin ennen tätä elif-lauseilla. Ylläpidettävyys on tällä hetkellä huonohko, mutta uusia mustetuottajia lisätään sivuston tuotteisiin harvoin.
 
 ```
 # product name is title minus manufacturer and size, plus some rubbish
