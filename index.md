@@ -214,9 +214,9 @@ Lisäksi projektin loppupuolella ymmärsimme ryhmänä, että storen hyödyntäm
 Projektia aloittaessa tahdoimme, että julkaisusta tehdään mahdollisimman helppo ja automatisoitu. Päädyimme käyttämään Github Actions workfloweja CI/CD-putken rakentamiseen. Tehtävänäni oli rakentaa tarvittavat workflowit. Ryhdyin rakentamaan workfloweja askel kerrallaan demon perusteella. Kaiken kaikkiaan tein neljä workflowia:
 
 - Destroy AWS Infrastructure: tuhoaa pilviresurssit. Tämänkaltaisita ei tulisi käyttää oikeissa tuotantoympäristöissä, mutta prototyypin rakentamisessa koen oikeutetuksi.
-- Test on Main Push: ajaa yksikkötestit, kun githubiin tehdään push.
+- Test on Main Push: ajaa yksikkötestit, kun githubiin tehdään push. Toteuttaa Continuous Integration-toimen.
 - Production Deploy: Pystyttää CDK-templaattien avulla AWS-resurssit. Tämä workflow myös ajaa Migrations-lambdan, jolla populoidaan tietokanta.
-- Hosting Deployment: Buildaa sovelluksen, ja kopioi tuotoksen hosting-kansiosta haluttuun S3:een.
+- Hosting Deployment: Buildaa sovelluksen, ja kopioi tuotoksen hosting-kansiosta haluttuun S3:een. Toteuttaa Continuous Deployment-toimen. Ongelmakohdaksi nousi buildatun sovelluksen siirtäminen pilveen; repositorioon päivittäminen tuotti ongelmia.
 
 Hosting Deployment oli lopulta vähimmällä käytöllä, mutta muista kolmesta saimme tuntuvia hyötyjä. Yksikkötestien automaattisilla ajoilla löydettiin virheitä koodissa. Lisäksi saimme tuntuvia säästöjä rahallisesti resurssien käytöstä vain työaikana. Alla on esimerkkinä Test on Main Push.
 
